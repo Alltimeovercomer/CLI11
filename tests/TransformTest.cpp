@@ -626,7 +626,7 @@ TEST_F(TApp, NumberWithUnitFloatOverflow) {
 
     args = {"-n", "3e+38 c"};
     run();
-    EXPECT_FLOAT_EQ(value, 0f);
+    EXPECT_FLOAT_EQ(value, 0.f);
 }
 
 TEST_F(TApp, AsSizeValue1000_1024) {
