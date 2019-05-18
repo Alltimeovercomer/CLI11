@@ -235,7 +235,7 @@ inline void remove_default_flag_values(std::string &flags) {
     while(loc != std::string::npos) {
         auto finish = flags.find_first_of("},", loc + 1);
         if((finish != std::string::npos) && (flags[finish] == '}')) {
-            flags.erase(flags.begin() + static_cast<std::ssize_t>(loc), flags.begin() + static_cast<std::ssize_t>(finish) + 1);
+            flags.erase(flags.begin() + static_cast<std::ptrdiff_t>(loc), flags.begin() + static_cast<std::ptrdiff_t>(finish) + 1);
         }
         loc = flags.find_first_of('{', loc + 1);
     }
