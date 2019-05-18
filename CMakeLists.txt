@@ -52,15 +52,6 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
         add_definitions(-Wall -Wextra -pedantic -Wshadow -Wstrict-overflow -Wconversion -Wsign-conversion)
     endif()
 
-    option(CLI11_WARNINGS_AS_ERRORS "Turn all warnings into errors (for CI)")
-    if(CLI11_WARNINGS_AS_ERRORS)
-        if(MSVC)
-            add_definitions("/WE")
-        else()
-            add_definitions(-Werror)
-        endif()
-    endif()
-
     if(CMAKE_VERSION VERSION_GREATER 3.6)
         # Add clang-tidy if available
         option(CLANG_TIDY_FIX "Perform fixes for Clang-Tidy" OFF)

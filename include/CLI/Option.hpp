@@ -722,7 +722,7 @@ class Option : public OptionBase<Option> {
             } else if(get_items_expected() < 0) {
                 // Require that this be a multiple of expected size and at least as many as expected
                 if(results_.size() < static_cast<size_t>(-get_items_expected()) ||
-                   results_.size() % static_cast<size_t>(std::abs(get_type_size())) != 0)
+                   results_.size() % static_cast<size_t>(std::abs(get_type_size())) != 0u)
                     throw ArgumentMismatch(get_name(), get_items_expected(), results_.size());
             }
             local_result = !callback_(results_);
