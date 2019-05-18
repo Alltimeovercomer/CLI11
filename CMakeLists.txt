@@ -49,7 +49,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     if(MSVC)
         add_definitions("/W4")
     else()
-        add_definitions(-Wall -Wextra -pedantic -Wshadow)
+        add_definitions(-Wall -Wextra -pedantic -Wshadow -Wstrict-overflow -Wconversion -Wsign-conversion)
     endif()
 
     if(CMAKE_VERSION VERSION_GREATER 3.6)
