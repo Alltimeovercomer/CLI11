@@ -745,7 +745,7 @@ TEST_F(TApp, AsSizeValue1024) {
 
     args = {"-s", "1b"};
     run();
-    EXPECT_FLOAT_EQ(value, 1f);
+    EXPECT_FLOAT_EQ(value, 1.f);
 
     uint64_t ki_value = 1024u;
     args = {"-s", "1k"};
