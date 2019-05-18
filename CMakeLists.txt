@@ -26,6 +26,9 @@ string(REGEX REPLACE ${VERSION_REGEX} "\\1" VERSION_STRING "${VERSION_STRING}")
 # Add the project
 project(CLI11 LANGUAGES CXX VERSION ${VERSION_STRING})
 
+# Special target that adds warnings. Is not exported.
+add_library(CLI11_warnings INTERFACE)
+
 # Only if built as the main project
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     # User settable
@@ -45,11 +48,19 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(CMAKE_CXX_EXTENSIONS OFF)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+    option(CLI11_WARNINGS_AS_ERRORS "Turn all warnings into errors (for CI)")
+
     # Be moderately paranoid with flags
     if(MSVC)
-        add_definitions("/W4")
+        target_compile_options(CLI11_warnings INTERFACE "/W4")
+        if(CLI11_WARNINGS_AS_ERRORS)
+            target_compile_options(CLI11_warnings INTERFACE "/WX")
+        endif()
     else()
-        add_definitions(-Wall -Wextra -pedantic -Wshadow -Wstrict-overflow -Wconversion -Wsign-conversion)
+        target_compile_options(CLI11_warnings INTERFACE -Wall -Wextra -pedantic -Wshadow)
+        if(CLI11_WARNINGS_AS_ERRORS)
+            target_compile_options(CLI11_warnings INTERFACE -Werror)
+        endif()
     endif()
 
     if(CMAKE_VERSION VERSION_GREATER 3.6)
@@ -158,7 +169,6 @@ if(CLI11_SINGLE_FILE)
     add_library(CLI11_SINGLE INTERFACE)
     target_link_libraries(CLI11_SINGLE INTERFACE CLI11)
     add_dependencies(CLI11_SINGLE generate_cli_single_file)
-    target_compile_definitions(CLI11_SINGLE INTERFACE -DCLI11_SINGLE_FILE)
     target_include_directories(CLI11_SINGLE INTERFACE "${CMAKE_CURRENT_BINARY_DIR}/include/")
 endif()
 

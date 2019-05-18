@@ -1,6 +1,6 @@
 function(add_cli_exe T)
     add_executable(${T} ${ARGN} ${CLI11_headers})
-    target_link_libraries(${T} PUBLIC CLI11)
+    target_link_libraries(${T} PUBLIC CLI11 CLI11_warnings)
     set_target_properties(
          ${T} PROPERTIES
          FOLDER "Examples"
@@ -69,7 +69,7 @@ set_property(TEST subcom_partitioned_none PROPERTY PASS_REGULAR_EXPRESSION
     "This is a timer:"
     "--file is required"
     "Run with --help for more information.")
-	
+
 add_test(NAME subcom_partitioned_all COMMAND subcom_partitioned --file this --count --count -d 1.2)
 set_property(TEST subcom_partitioned_all PROPERTY PASS_REGULAR_EXPRESSION
     "This is a timer:"
@@ -93,7 +93,7 @@ set_property(TEST option_groups_extra PROPERTY PASS_REGULAR_EXPRESSION
 add_test(NAME option_groups_extra2 COMMAND option_groups --csv --address "192.168.1.1" -o "test.out")
 set_property(TEST option_groups_extra2 PROPERTY PASS_REGULAR_EXPRESSION
     "at most 1")
-	
+
 add_cli_exe(positional_arity positional_arity.cpp)
 add_test(NAME positional_arity1 COMMAND positional_arity one )
 set_property(TEST positional_arity1 PROPERTY PASS_REGULAR_EXPRESSION
@@ -132,7 +132,7 @@ set_property(TEST shapes_all PROPERTY PASS_REGULAR_EXPRESSION
     "circle4"
     "rectangle2 with edges [2.1,2.1]"
     "triangel1 with sides [4.5]")
-	
+
 add_cli_exe(ranges ranges.cpp)
 add_test(NAME ranges_range COMMAND ranges --range 1 2 3)
 set_property(TEST ranges_range PROPERTY PASS_REGULAR_EXPRESSION

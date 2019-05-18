@@ -55,7 +55,7 @@ foreach(T ${CLI11_TESTS})
 
     add_executable(${T} ${T}.cpp ${CLI11_headers})
     add_sanitizers(${T})
-    target_link_libraries(${T} PUBLIC CLI11)
+    target_link_libraries(${T} PUBLIC CLI11 CLI11_warnings)
     add_gtest(${T})
 
     if(CLI11_SINGLE_FILE AND CLI11_SINGLE_FILE_TESTS)
